@@ -1,0 +1,50 @@
+{% extends 'reviews/base.html' %}
+{% comment %} {% load static %} {% endcomment %}
+
+{% block title %}
+  Your Review
+{% endblock %}
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Review</title>
+    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}" />
+  </head> {% endcomment %}
+
+  {% comment %} <body>
+    {% endcomment %}
+{% block content %}
+    <form action="/" method="POST">
+      {% comment %}action="/user-review"{% endcomment %}
+      {% csrf_token %}
+      {% comment %} {% if has_error %}
+        <p>This form is invalid - please enter a valid username!</p>
+      {% endif %}
+      <label for="username">Your name</label>
+      <input id="username" name="username" type="text" /> {% endcomment %}
+      {% comment %}name="username" -> http://127.0.0.1:8000/?username=... buradaki değeri verir{% endcomment %}
+
+      {% comment %} {{ form }} {% endcomment %}
+      {% comment %} <div class="form-control {% if form.user_name.errors %}{% endif %}">{{ form.user_name.label_tag }}
+        {{ form.user_name }}
+        {{ form.user_name.errors }}</div>
+      <div class="form-control {% if form.review_text.errors %}{% endif %}">{{ form.review_text.label_tag }}
+        {{ form.review_text }}
+        {{ form.review_text.errors }}</div>
+      <div class="form-control {% if form.rating.errors %}{% endif %}">{{ form.rating.label_tag }}
+        {{ form.rating }}
+        {{ form.rating.errors }}</div> {% endcomment %}
+
+      {% for field in form %}
+        <div class="form-control {% if field.errors %}{% endif %}">{{ field.label_tag }}
+          {{ field }}
+          {{ field.errors }}</div>
+      {% endfor %}
+      <button type="submit">Send</button>
+    </form>
+    {% comment %}
+  </body>
+</html> {% endcomment %}
+{% endblock %}
